@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Assignment 2 Part 2</string>
+
+    <string-array name="languages_array">
+        <item>Spanish</item>
+        <item>French</item>
+        <item>Italian</item>
+        <item>German</item>
+    </string-array>
+</resources>
