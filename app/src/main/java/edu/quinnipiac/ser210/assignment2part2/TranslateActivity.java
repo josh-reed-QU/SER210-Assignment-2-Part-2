@@ -1,3 +1,8 @@
+/*
+    // Authors: Josh Reed, Andrew Matos
+    // Assignment 2 Part 2 - Translate App
+    // Due Date: March 18, 2022
+ */
 package edu.quinnipiac.ser210.assignment2part2;
 
 import android.os.AsyncTask;
@@ -22,13 +27,15 @@ public class TranslateActivity extends AsyncTask<Void, Void, String> {
     // The TextView where we will show results
     private TextView mTextView;
     private String mOriginalText;
+    private int index;
 
     private static final String LOG_TAG = " ";
 
     // Constructor that provides a reference to the TextView from the MainActivity
-    public TranslateActivity(String originalText, TextView translatedView) {
+    public TranslateActivity(String originalText, TextView translatedView, int langIndex) {
         mOriginalText = originalText;
         mTextView = translatedView;
+        index = langIndex;
     }
 
     /**
@@ -57,7 +64,23 @@ public class TranslateActivity extends AsyncTask<Void, Void, String> {
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream()));
             final StringBuilder requestData = new StringBuilder(100);
             requestData.append("&text=").append(queryString);
-            requestData.append("&tl=").append("es"); // TODO: SWITCH THIS LANGUAGE TO ANOTHER, I HAVE NO CLUE WHERE THE SPINNER ENTRY IS
+            switch(index) {
+                case 0:
+                    requestData.append("&tl=").append("es");
+                    break;
+                case 1:
+                    requestData.append("&tl=").append("fr");
+                    break;
+                case 2:
+                    requestData.append("&tl=").append("it");
+                    break;
+                case 3:
+                    requestData.append("&tl=").append("de");
+                    break;
+                case 4:
+                    requestData.append("&tl=").append("ja");
+                    break;
+            }
             requestData.append("&sl=").append("en");
             out.write(String.valueOf(requestData));
             out.flush();

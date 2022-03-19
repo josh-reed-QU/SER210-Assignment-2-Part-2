@@ -23,6 +23,8 @@ import androidx.core.view.MenuItemCompat;
 
 public class InputScreen extends AppCompatActivity {
     private ShareActionProvider provider;
+    private Intent intent;
+    private int currentColor;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -46,23 +48,24 @@ public class InputScreen extends AppCompatActivity {
                 switch(i) {
                     case 0:
                         parent.setBackgroundColor(Color.WHITE);
+                        currentColor = Color.WHITE;
                         break;
                     case 1:
                         parent.setBackgroundColor(Color.CYAN);
+                        currentColor = Color.CYAN;
                         break;
                     case 2:
                         parent.setBackgroundColor(Color.LTGRAY);
-                        break;
-                    default:
+                        currentColor = Color.LTGRAY;
                         break;
                 }
             }
-
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) { }
         });
+        intent = new Intent(this, OutputScreen.class);
+        currentColor = Color.WHITE;
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -76,13 +79,10 @@ public class InputScreen extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+                intent.putExtra("index", i);
             }
-
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) { }
         });
         // sets action bar for the activity
         setSupportActionBar(findViewById(R.id.toolbar));
@@ -100,6 +100,7 @@ public class InputScreen extends AppCompatActivity {
                 break;
             case R.id.help:
                 Intent helpIntent = new Intent(this, HelpScreen.class);
+                helpIntent.putExtra("backgroundColor", currentColor);
                 startActivity(helpIntent);
                 break;
             default:
@@ -110,12 +111,11 @@ public class InputScreen extends AppCompatActivity {
 
     // called when the translate button is clicked
     public void onTranslate(View view) {
-        Intent intent = new Intent(this, OutputScreen.class);
         EditText input = (EditText) findViewById(R.id.textInput);
         // gets text inputted into the edit text on the first screen
         String textInput = input.getText().toString();
         intent.putExtra("input", textInput);
-
+        intent.putExtra("backgroundColor", currentColor);
         // starts second activity after the input is stored in the intent
         startActivity(intent);
     }

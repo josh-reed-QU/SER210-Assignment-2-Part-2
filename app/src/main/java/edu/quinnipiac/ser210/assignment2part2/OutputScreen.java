@@ -38,16 +38,24 @@ public class OutputScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_output_screen);
 
-        // takes the inputted text from the first screen and displays it on the second screen
         Intent intent = getIntent();
+
+        // sets background color to match the previous screen
+        int color = intent.getIntExtra("backgroundColor", Color.WHITE);
+        View temp = findViewById(R.id.textInLabel);
+        View parent = temp.getRootView();
+        parent.setBackgroundColor(color);
+
+        // takes the inputted text from the first screen and displays it on the second screen
         String textIn = intent.getStringExtra("input");
+        int langIndex = intent.getIntExtra("index", 0);
 
         TextView originalText = (TextView) findViewById(R.id.originalText);
         originalText.setText(textIn);
 
         translatedText = (TextView) findViewById(R.id.translatedText);
 
-        new TranslateActivity(textIn, translatedText).execute();
+        new TranslateActivity(textIn, translatedText, langIndex).execute();
 
         // Restore TextView if there is a savedInstanceState
         if(savedInstanceState!=null){
@@ -55,6 +63,7 @@ public class OutputScreen extends AppCompatActivity {
             translatedText.setText(savedInstanceState.getString(TRANSLATED_TEXT_STATE));
         }
     }
+
     /**
      * Saves the contents of the TextView to restore on configuration change.
      * @param outState The bundle in which the state of the activity is saved when
