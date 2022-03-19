@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">Assignment 2 Part 2</string>
+    <string name="app_name">Assignment2 Pt2</string>
+    <string name="help_text">This is a translate app. This app uses the google translate API, and is developed by
+    Josh Reed and Andrew Matos. Enter your text in the input, choose a language, and hit translate to translate text.</string>
 
     <string-array name="languages_array">
         <item>Spanish</item>
@@ -7,4 +9,11 @@
         <item>Italian</item>
         <item>German</item>
     </string-array>
+
+    <string-array name="colors_array">
+        <item>White</item>
+        <item>Blue</item>
+        <item>Grey</item>
+    </string-array>
+
 </resources>
